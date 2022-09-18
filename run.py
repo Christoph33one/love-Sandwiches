@@ -37,7 +37,9 @@ def validate_data(values):
     """
 # try statement lets you test for Errors in a blocl of code. 
 # Here an if statement is added.
+    print(values)
     try: 
+        [int(value) for value in values]
         if len(values) != 6: # if list length is not equal to 6.
             raise ValueError( # raises custom Error message.
                 f"Exactly 6 values requried, you provided {len(values)}"
