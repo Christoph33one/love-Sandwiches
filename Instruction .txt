@@ -1,0 +1,45 @@
+Reviveing correct or incorrect data from the user.
+
+1.function get_sales, gets data from user and displays in the terminal.
+2.function validate_data, runs an error in the terminal if wrong data added by the user. 
+3.get_sales runs a while loop, the while loop asks the user for data using the data_str function.
+4.sales_data takes a string of data from the user and converts in into a list of values [","] 
+5.a single if statement is used to call the validate_data function and adds the sales_data list[","].
+
+6. if correct data is added by user,
+validate_data function ckecks for error and calls true, 
+validate_data function in the if statement ends with a (break) to stop while loop from running. 
+
+7. if user adds wrong data, and error is printed from the validate_data function and the while loops keeps running.
+
+
+def get_sales_data():
+    """
+    get sales figures from the user
+    """
+    while True:
+        print("please enter sales data from last market")
+        print("data should be six numbers, seperated be commas.")
+        print("example: 10,20,30,40,50,60\n")
+
+        sales_data = data_str.split(",") 
+
+        if validate_data(sales_data):
+            print("Data is valid")
+            break 
+
+   
+
+def validate_data(values):
+
+    try: 
+            [int(value) for value in values]
+            if len(values) != 6: # if list length is not equal to 6.
+                raise ValueError( # raises custom Error message.
+                    f"Exactly 6 values requried, you provided {len(values)}"
+                )
+        except ValueError as e:
+            print(f"Invalid data: {e}, please try again./n")
+            return False
+
+ return True
