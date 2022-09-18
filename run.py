@@ -12,7 +12,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
-# first funtion to get sales data from the user
+# first funtion to get sales data from the user as a string
 def get_sales_data():
     """
     get sales figures from the user
@@ -22,9 +22,28 @@ def get_sales_data():
     print("example: 10,20,30,40,50,60\n")
 
     # data_str function for data as a string. 
-    # print data_str back to the termial to check its value. (always print fucntions to test it works!)
+    # print data_str back to the termial to check its value. 
+    # (always print functions to test it works!) 
     data_str = input("Enter your data here:")
-    print(f"The data provided id {data_str}")
+
+    sales_data = data_str.split(",")  # commis seperate values in the list.
+    validate_data(sales_data)
+
+def validate_data(values):
+    """
+    Inside the try, converts all string values into intergers.
+    Raises ValueError if string cannot be converted into intergers,
+    or if there are not 6 values.
+    """
+# try statement lets you test for Errors in a blocl of code. 
+# Here an if statement is added.
+    try: 
+        if len(values) != 6: # if list length is not equal to 6.
+            raise ValueError( # raises custom Error message.
+                f"Exactly 6 values requried, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again./n")
 
 # calls first function to get sales data from the terminal.
 get_sales_data()
