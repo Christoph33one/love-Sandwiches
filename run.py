@@ -63,8 +63,8 @@ def update_sales_worksheet(data):
     Update worksheet, this adds a new row with the list of data provided.
     """
     print("Updating sales worksheet...\n")
-    sales_worksheet = SHEET.worksheet("sales")
-    sales_worksheet.append_row(data)
+    sales_worksheet = SHEET.worksheet("sales") # adding data to the google sheets sales sheet.
+    sales_worksheet.append_row(data) # append adds more to list
     
 def calculate_surplus_data(sales_row):
     """
@@ -76,9 +76,15 @@ def calculate_surplus_data(sales_row):
     """
     print("Calculating_surplus_date...\n")
     stock = SHEET.worksheet("stock").get_all_values() # to get values from stock data in google sheets
-    pprint(stock)
     stock_row = stock[-1]
-    print(stock_row)
+    
+    
+    surplus_data = [] # calculating the surplus data by using the sales and stock data.
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+    
+    return surplus_data
 
 def main():
     """
@@ -86,10 +92,11 @@ def main():
     """
     # calls first function to get sales data from the terminal.
     data = get_sales_data()
-    sales_data = [int(num) for num in data]
+    sales_data = [int(num) for num in data] # change from a string into an interger (int)
     update_sales_worksheet(sales_data)
     # calling function and passing the sales_data variable .
-    calculate_surplus_data(sales_data)
+    new_surplus_data = calculate_surplus_data(sales_data)
+    print(new_surplus_data)
 
 print("Welcome to love sandwiches data automation")
 main()
