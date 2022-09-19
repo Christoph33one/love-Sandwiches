@@ -77,7 +77,8 @@ def calculate_surplus_data(sales_row):
     print("Calculating_surplus_date...\n")
     stock = SHEET.worksheet("stock").get_all_values() # to get values from stock data in google sheets
     pprint(stock)
-    stock_row = 
+    stock_row = stock[-1]
+    print(stock_row)
 
 def main():
     """
