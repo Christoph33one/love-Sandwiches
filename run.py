@@ -65,6 +65,23 @@ def update_sales_worksheet(data):
     print("Updating sales worksheet...\n")
     sales_worksheet = SHEET.worksheet("sales") # adding data to the google sheets sales sheet.
     sales_worksheet.append_row(data) # append adds more to list
+
+def update_surplus_worksheet(data): #dffdgfghgfhjhgjhgjgh
+    """
+    Update surplus worksheet, this adds a new row with the list of data provided.
+    """
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet("surplus") # adding data to the google sheets sales sheet.
+    surplus_worksheet.append_row(data) # append adds more to list
+    print("Updated surplus worksheet successfully,\n")
+
+
+
+# def update_surplus_worksheet(surplus_data):
+#     print("Updating surplus data")
+#     sales_worksheet = SHEET.worksheet(surplus)
+#     sales_worksheet.append_row(surplus_data)
+
     
 def calculate_surplus_data(sales_row):
     """
@@ -96,7 +113,10 @@ def main():
     update_sales_worksheet(sales_data)
     # calling function and passing the sales_data variable .
     new_surplus_data = calculate_surplus_data(sales_data)
-    print(new_surplus_data) 
+    update_surplus_worksheet(new_surplus_data)
+
+    
+
 
 print("Welcome to love sandwiches data automation")
 main()
