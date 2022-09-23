@@ -107,13 +107,12 @@ def calculate_surplus_data(sales_row):
     
     return surplus_data
 
-def get_last_5_entries_sales():
+def get_last_5_entries_sales():  
     """
     Collects collumns of data from sales worksheet, collecting
     the last 5 entries for each sandwich and returns the data 
     as a list of lists. 
     """
-
     sales = SHEET.worksheet("sales")
     
     columns = []
@@ -122,6 +121,21 @@ def get_last_5_entries_sales():
         columns.append(column[-5:]) # [] slicing from list to list, use :
    
     return columns
+
+def calculate_stock_data(data):
+    """
+    Calculate the avaerage stock for eacj item type, adding 10%.
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+    
+    for columnn in data: # using a For loop to calculate the average from each column of data
+        int_column = [int(num) for num in columnn] # coverting colums data into numbers (intergers)
+        average= sum(int_column) / len(int_column) # divide int_column by its own lenght to get an average.
+        stock_num = average * 1.1 # adding 10% to stock. Because additional stock results in better sales. 
+        new_stock_data.append(round(stock_num)) # append is to add an extra piece of data.
+
+    return(new_stock_data)
 
 
 def main():
@@ -135,9 +149,11 @@ def main():
     # calling function and passing the sales_data variable .
     new_surplus_data = calculate_surplus_data(sales_data)
     update_worksheet(new_surplus_data, "surplus")
+    sales_columns = get_last_5_entries_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock")
     
 
 print("Welcome to love sandwiches data automation")
-# main()
+main()
 
-sales_columns = get_last_5_entries_sales()
